@@ -28,7 +28,13 @@
 
         </ul>
         <div class="form-inline my-2 my-lg-0">
+
             <a href="#" class="btn btn-warning">Login</a>
+            <div> | </div>
+            <div> | </div>
+            <div> | </div>
+            <a href="{% url 'create_user' %}" class="btn btn-warning">create user</a>
+
 
             <a href="{% url 'cart' %}">
                 <img id="cart-icon" src="{% static 'images/cart.png' %}">

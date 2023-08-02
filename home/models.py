@@ -6,7 +6,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     color = models.CharField(max_length=255, blank=True)  # red, white
     type = models.CharField(max_length=255, blank=True)  # dry sweet
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     image = models.ImageField(null=True, blank=True)
     digital = models.BooleanField(default=False, null=True, blank=True)
     description = models.TextField(max_length=255, blank=True, null=True)
@@ -89,3 +89,12 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+
+class History(models.Model):
+    text = models.TextField(max_length=400)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text
+
