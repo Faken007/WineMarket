@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 offset-2">
                 <div class="row">
                     {% for product in products %}
                         <div class="col-md-4 mb-4">
@@ -17,7 +17,7 @@
                                                 class="btn btn-outline-secondary add-btn add-btn update-cart">Add to
                                             Cart
                                         </button>
-                                        <a class="btn btn-outline-success" href="#">View</a>
+{#                                        <a class="btn btn-outline-success" href="#">View</a>#}
                                         <h4 style="display: inline-block; float: right">
                                             <strong>{{ product.price|floatformat:2 }}</strong>
                                         </h4>
