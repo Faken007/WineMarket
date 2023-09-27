@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import EmailMessage
 from django.shortcuts import render
 from django.template.loader import get_template
@@ -8,7 +9,7 @@ from WineMarket.settings import EMAIL_HOST_USER
 from .forms import UserForm
 from .models import *
 from home.models import Product
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 import json
 import datetime
 from .utils import cookieCart, cartData, guestOrder
@@ -22,6 +23,15 @@ def store(request):
     products = Product.objects.all()
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store.html', context)
+
+def homepage(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    products = Product.objects.all()
+    context = {'products': products, 'cartItems': cartItems}
+
+    return render(request, 'homepage.html', context)
+
 
 
 def cart(request):
@@ -118,6 +128,7 @@ class UserCreateView(CreateView):
     form_class = UserForm
     success_url = reverse_lazy('login')
 
+
     def form_valid(self, form):
         if form.is_valid():
             new_user = form.save(commit=False)  # aici salvam datele in tabele auth_user
@@ -151,5 +162,15 @@ class UserCreateView(CreateView):
             # mail.content_subtype = 'html'
             # mail.send()
 
+        # if request.HttpRequest == 'POST':
+        #     form = UserCreationForm(request.HttpRequest)
+        #     if form.is_valid():
+        #         # saving the registered user
+        #         user = form.save()
+        #         username = form.cleaned_data.get('username')
+        #         # create customer
+        #         Customer.objects.create(user=user, name=username, email=user.email)
+
         return super().form_valid(form)
+
 
